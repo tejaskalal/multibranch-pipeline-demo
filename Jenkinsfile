@@ -20,4 +20,22 @@ pipeline{
       }
     }
   }
+  
+  post{
+    success{
+      emailext(
+        to:"tejaskalal1125@gmail.com",
+        subject:"Successfully deployed - ${env.JOB_NAME} - ${env.BRANCH_NAME} to production",
+        body:"The deployment of - ${env.BRANCH_NAME} to production was successful."
+      )
+    }
+    failure{
+      emailext(
+        to:"tejaskalal1125@gmail.com",
+        subject:"Deployment failed - ${env.JOB_NAME} - ${env.BRANCH_NAME} to production",
+        body:"The deployment of - ${env.BRANCH_NAME} to production failed."
+      )
+    }
+  }
 }
+
