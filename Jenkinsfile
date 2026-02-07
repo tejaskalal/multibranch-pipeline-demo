@@ -1,37 +1,40 @@
-pipeline{
+pipeline {
 
   agent any
 
-  stages{
+  stages {
 
-    stage ('Build'){
-      steps{
-        echo "Building branch:${BRANCH_NAME}"
+    stage('Build') {
+      steps {
+        echo "Building application"
       }
     }
 
-    stage ('Deploy'){
-      steps{
-        echo "Deploying to production"
+    stage('Deploy') {
+      steps {
+        sh 'echo Deploying application'
       }
     }
   }
-  
-  post{
-    success{
+
+  post {
+
+    success {
       emailext(
-        to:'tejaskalal2002@gmail.com',
-        subject:"Successfully deployed - ${env.JOB_NAME} - ${env.BRANCH_NAME} to production",
-        body:"The deployment of - ${env.BRANCH_NAME} to production was successful."
+        to: 'tejaskalal2002@gmail.com',
+        subject: 'Jenkins Build SUCCESS',
+        body: 'Build and deployment completed successfully.',
+        mimeType: 'text/plain'
       )
     }
-    failure{
+
+    failure {
       emailext(
-        to:'tejaskalal2002@gmail.com',
-        subject:"Deployment failed - ${env.JOB_NAME} - ${env.BRANCH_NAME} to production",
-        body:"The deployment of - ${env.BRANCH_NAME} to production failed."
+        to: 'tejaskalal2002@gmail.com',
+        subject: 'Jenkins Build FAILED',
+        body: 'Build or deployment failed. Please check Jenkins console.',
+        mimeType: 'text/plain'
       )
     }
   }
 }
-
