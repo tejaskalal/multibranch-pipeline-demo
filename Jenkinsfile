@@ -18,10 +18,12 @@ pipeline {
     post {
         always {
             echo 'POST BLOCK EXECUTED'
+
             emailext(
                 to: 'tejaskalal1125@gmail.com',
-                subject: 'PIPELINE EXECUTED SUCCESSFULLY',
-                body: 'If you receive this email, pipeline notifications are working.'
+                subject: 'PIPELINE EMAIL TEST',
+                body: 'If you receive this, Jenkins email filtering is fixed.',
+                recipientProviders: []
             )
         }
     }
